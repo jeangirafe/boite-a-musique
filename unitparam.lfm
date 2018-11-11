@@ -1,0 +1,593 @@
+object FrmParam: TFrmParam
+  Left = 1274
+  Height = 813
+  Top = 190
+  Width = 487
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'Paramètres'
+  ClientHeight = 813
+  ClientWidth = 487
+  OnActivate = FormActivate
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  Position = poOwnerFormCenter
+  ShowInTaskBar = stNever
+  LCLVersion = '1.6.4.0'
+  object CheckVerif: TCheckBox
+    Left = 10
+    Height = 31
+    Top = 8
+    Width = 256
+    AutoSize = False
+    Caption = 'Vérifier la présence de nouveaux sons'#10'à chaque ouverture de session'
+    TabOrder = 0
+  end
+  object ChkAutoPlay: TCheckBox
+    Left = 10
+    Height = 36
+    Top = 48
+    Width = 210
+    Caption = 'Lancer une playlist'#10'automatiquement au démarrage.'
+    TabOrder = 1
+  end
+  object ChkRetardateur: TCheckBox
+    Left = 232
+    Height = 22
+    Top = 48
+    Width = 177
+    Caption = 'Retardateur programmé à :'
+    OnChange = ChkRetardateurChange
+    TabOrder = 2
+  end
+  object SpinVol: TSpinEdit
+    Left = 208
+    Height = 27
+    Top = 96
+    Width = 38
+    MinValue = 30
+    TabOrder = 3
+    Value = 50
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 17
+    Top = 102
+    Width = 178
+    Caption = 'Niveau de sous-impression (%) :'
+    ParentColor = False
+  end
+  object TabControl1: TTabControl
+    Left = 16
+    Height = 464
+    Top = 224
+    Width = 448
+    OnChange = TabControl1Change
+    OnChanging = TabControl1Changing
+    TabIndex = 0
+    Tabs.Strings = (
+      'MUSIQUE'
+      'CAPSULES'
+      'JINGLES'
+      'INSTRU'
+    )
+    TabOrder = 4
+    object GroupBox1: TGroupBox
+      Left = -8
+      Height = 432
+      Top = 40
+      Width = 580
+      ClientHeight = 430
+      ClientWidth = 578
+      ParentColor = False
+      TabOrder = 1
+      object SpinPS: TFloatSpinEdit
+        Left = 192
+        Height = 27
+        Top = 384
+        Width = 56
+        DecimalPlaces = 3
+        Increment = 0.1
+        MaxValue = 30
+        MinValue = 0
+        TabOrder = 0
+        Value = 0
+      end
+      object Label2: TLabel
+        Left = 16
+        Height = 42
+        Top = 384
+        Width = 168
+        AutoSize = False
+        Caption = 'Valeur du Point de Sortie par défaut (secondes) :'
+        Font.Height = -13
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label3: TLabel
+        Left = 120
+        Height = 17
+        Top = 192
+        Width = 28
+        Caption = 'Jours'
+        ParentColor = False
+      end
+      object Label4: TLabel
+        Left = 168
+        Height = 17
+        Top = 192
+        Width = 41
+        Caption = 'Heures'
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 224
+        Height = 17
+        Top = 192
+        Width = 45
+        Caption = 'Minutes'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 23
+        Height = 17
+        Top = 224
+        Width = 70
+        Alignment = taRightJustify
+        Caption = 'Ecart TITRE :'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 8
+        Height = 17
+        Top = 262
+        Width = 85
+        Alignment = taRightJustify
+        Caption = 'Ecart ARTISTE :'
+        ParentColor = False
+      end
+      object LabelSpinInter: TLabel
+        Left = 16
+        Height = 17
+        Top = 354
+        Width = 113
+        Caption = 'Diffusion toutes les :'
+        ParentColor = False
+      end
+      object SpinINTER: TSpinEdit
+        Left = 136
+        Height = 27
+        Top = 349
+        Width = 48
+        AutoSize = False
+        BorderSpacing.CellAlignHorizontal = ccaCenter
+        MaxValue = 90
+        TabOrder = 1
+      end
+      object LabelMinutes: TLabel
+        Left = 192
+        Height = 17
+        Top = 354
+        Width = 21
+        Caption = 'min'
+        ParentColor = False
+      end
+      object CmdAjout: TButton
+        Left = 8
+        Height = 25
+        Top = 152
+        Width = 128
+        Caption = 'Ajouter un dossier'
+        Color = clYellow
+        OnClick = CmdAjoutClick
+        TabOrder = 2
+      end
+      object LabelGenre: TLabel
+        Left = 16
+        Height = 17
+        Top = 300
+        Width = 77
+        Alignment = taRightJustify
+        Caption = 'Ecart GENRE :'
+        ParentColor = False
+      end
+      object TextEcartTitJ: TSpinEdit
+        Left = 113
+        Height = 27
+        Top = 217
+        Width = 50
+        Alignment = taCenter
+        OnExit = TextEcartTitJExit
+        TabOrder = 3
+      end
+      object TextEcartArtJ: TSpinEdit
+        Left = 113
+        Height = 27
+        Top = 256
+        Width = 50
+        Alignment = taCenter
+        OnExit = TextEcartArtJExit
+        TabOrder = 4
+      end
+      object TextEcartGenreJ: TSpinEdit
+        Left = 112
+        Height = 27
+        Top = 296
+        Width = 50
+        Alignment = taCenter
+        OnExit = TextEcartGenreJExit
+        TabOrder = 5
+      end
+      object TextEcartGenreM: TSpinEdit
+        Left = 224
+        Height = 27
+        Top = 296
+        Width = 50
+        Alignment = taCenter
+        MaxValue = 59
+        OnExit = TextEcartGenreMExit
+        TabOrder = 6
+      end
+      object TextEcartArtH: TSpinEdit
+        Left = 168
+        Height = 27
+        Top = 256
+        Width = 50
+        Alignment = taCenter
+        MaxValue = 23
+        OnExit = TextEcartArtHExit
+        TabOrder = 7
+      end
+      object TextEcartArtM: TSpinEdit
+        Left = 224
+        Height = 27
+        Top = 256
+        Width = 50
+        Alignment = taCenter
+        MaxValue = 59
+        OnExit = TextEcartArtMExit
+        TabOrder = 8
+      end
+      object TextEcartGenreH: TSpinEdit
+        Left = 168
+        Height = 27
+        Top = 296
+        Width = 50
+        Alignment = taCenter
+        MaxValue = 23
+        OnExit = TextEcartGenreHExit
+        TabOrder = 9
+      end
+      object TextEcartTitH: TSpinEdit
+        Left = 168
+        Height = 27
+        Top = 217
+        Width = 50
+        Alignment = taCenter
+        MaxValue = 23
+        OnExit = TextEcartTitHExit
+        TabOrder = 10
+      end
+      object TextEcartTitM: TSpinEdit
+        Left = 224
+        Height = 27
+        Top = 217
+        Width = 50
+        Alignment = taCenter
+        MaxValue = 59
+        OnExit = TextEcartTitMExit
+        TabOrder = 11
+      end
+      object Chktransition: TCheckBox
+        Left = 296
+        Height = 22
+        Top = 192
+        Width = 148
+        Caption = 'Autoriser la transition '
+        OnChange = ChktransitionChange
+        TabOrder = 12
+      end
+      object ChkTous: TButton
+        Left = 292
+        Height = 22
+        Top = 320
+        Width = 77
+        Caption = 'Tous'
+        OnClick = ChkTousClick
+        TabOrder = 13
+      end
+      object ChkAucun: TButton
+        Left = 379
+        Height = 22
+        Top = 320
+        Width = 77
+        Caption = 'Aucun'
+        OnClick = ChkAucunClick
+        TabOrder = 14
+      end
+      object LabelInstru: TLabel
+        Left = 336
+        Height = 17
+        Top = 349
+        Width = 84
+        Caption = 'Instru associé :'
+        ParentColor = False
+        WordWrap = True
+      end
+    end
+  end
+  object ProgressBar1: TProgressBar
+    Left = 16
+    Height = 9
+    Top = 790
+    Width = 448
+    Smooth = True
+    TabOrder = 5
+  end
+  object CmdVerif: TButton
+    Left = 277
+    Height = 33
+    Top = 6
+    Width = 64
+    Caption = 'Vérifier'
+    Color = clYellow
+    OnClick = CmdVerifClick
+    TabOrder = 6
+  end
+  object TextRetard: TEdit
+    Left = 412
+    Height = 27
+    Top = 46
+    Width = 64
+    Alignment = taCenter
+    Enabled = False
+    ParentBidiMode = False
+    TabOrder = 7
+    Text = '00:00:00'
+  end
+  object LabelCounter: TLabel
+    Left = 16
+    Height = 16
+    Top = 777
+    Width = 448
+    Alignment = taCenter
+    AutoSize = False
+    ParentColor = False
+  end
+  object CmdSupp: TButton
+    Left = 362
+    Height = 25
+    Top = 416
+    Width = 104
+    Caption = 'Supprimer'
+    Color = clYellow
+    OnClick = CmdSuppClick
+    TabOrder = 8
+  end
+  object Label10: TLabel
+    Left = 344
+    Height = 17
+    Top = 472
+    Width = 45
+    Caption = 'Minutes'
+    ParentColor = False
+  end
+  object ListDossiers: TStringGrid
+    Cursor = crArrow
+    Left = 16
+    Height = 152
+    Top = 264
+    Width = 450
+    HelpType = htKeyword
+    BorderStyle = bsNone
+    ColCount = 3
+    Columns = <    
+      item
+        MaxSize = 150
+        Title.Caption = 'Genre'
+        Width = 150
+      end    
+      item
+        MaxSize = 280
+        Title.Caption = 'Dossier'
+        Width = 280
+      end    
+      item
+        Title.Caption = 'Num'
+        Visible = False
+      end>
+    ExtendedSelect = False
+    FixedCols = 0
+    HeaderHotZones = []
+    Options = [goFixedVertLine, goFixedHorzLine, goHorzLine, goColMoving, goRowSelect, goSmoothScroll, goHeaderPushedLook, goCellEllipsis]
+    ScrollBars = ssAutoVertical
+    TabOrder = 9
+    OnBeforeSelection = ListDossiersBeforeSelection
+    OnSelection = ListDossiersSelection
+    OnSelectCell = ListDossiersSelectCell
+  end
+  object CmdPochette: TButton
+    Left = 14
+    Height = 24
+    Hint = 'Dossier de stockage des visuels de pochettes'
+    Top = 160
+    Width = 450
+    Caption = 'Dossier de pochettes'
+    OnClick = CmdPochetteClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+  end
+  object CmdBase: TButton
+    Left = 14
+    Height = 25
+    Hint = 'Emplacement de la base'
+    Top = 128
+    Width = 450
+    Caption = 'Emplacement de la base'
+    Color = clNone
+    OnClick = CmdBaseClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 11
+  end
+  object ChkOrdre: TCheckBox
+    Left = 24
+    Height = 22
+    Top = 758
+    Width = 231
+    Caption = 'Donner la priorité aux ajouts récents.'
+    TabOrder = 12
+  end
+  object Label12: TLabel
+    Left = 24
+    Height = 17
+    Top = 694
+    Width = 165
+    Alignment = taRightJustify
+    Caption = 'Ecart mini JINGLE / CAPSULE :'
+    ParentColor = False
+  end
+  object SpinEcartJC: TSpinEdit
+    Left = 200
+    Height = 27
+    Top = 690
+    Width = 48
+    AutoSize = False
+    BorderSpacing.CellAlignHorizontal = ccaCenter
+    MaxValue = 90
+    TabOrder = 13
+  end
+  object Label13: TLabel
+    Left = 24
+    Height = 17
+    Top = 726
+    Width = 153
+    Alignment = taRightJustify
+    Caption = 'Choisir la MUSIQUE parmi :'
+    ParentColor = False
+  end
+  object SpinSelect: TSpinEdit
+    Left = 184
+    Height = 27
+    Top = 722
+    Width = 48
+    AutoSize = False
+    BorderSpacing.CellAlignHorizontal = ccaCenter
+    MinValue = 1
+    TabOrder = 14
+    Value = 10
+  end
+  object Label14: TLabel
+    Left = 240
+    Height = 17
+    Top = 726
+    Width = 236
+    Alignment = taRightJustify
+    Caption = '% des morceaux les - récemment diffusés.'
+    ParentColor = False
+  end
+  object LstTransition: TStringGrid
+    Cursor = crArrow
+    Left = 300
+    Height = 104
+    Top = 480
+    Width = 180
+    HelpType = htKeyword
+    ColCount = 3
+    Columns = <    
+      item
+        Title.Caption = 'NumDossier'
+        Width = 0
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.MultiLine = True
+        Title.Caption = 'Check'
+        Width = 30
+      end    
+      item
+        Title.Caption = 'NomGenre'
+        Width = 134
+      end>
+    ExtendedSelect = False
+    FixedCols = 0
+    FixedRows = 0
+    GridLineWidth = 0
+    HeaderHotZones = []
+    Options = [goFixedVertLine, goFixedHorzLine, goHorzLine, goDrawFocusSelected, goColMoving, goEditing, goRowSelect, goSmoothScroll, goHeaderPushedLook, goCellEllipsis]
+    ParentShowHint = False
+    ScrollBars = ssAutoVertical
+    ShowHint = True
+    TabOrder = 15
+    OnClick = LstTransitionClick
+  end
+  object ComboInstru: TListBox
+    Left = 300
+    Height = 53
+    Top = 664
+    Width = 180
+    ItemHeight = 0
+    OnClick = ComboInstruClick
+    ScrollWidth = 178
+    TabOrder = 16
+    TopIndex = -1
+  end
+  object TextInstru: TLabeledEdit
+    Left = 300
+    Height = 27
+    Top = 632
+    Width = 180
+    EditLabel.AnchorSideLeft.Control = TextInstru
+    EditLabel.AnchorSideRight.Control = TextInstru
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = TextInstru
+    EditLabel.Left = 300
+    EditLabel.Height = 17
+    EditLabel.Top = 612
+    EditLabel.Width = 180
+    EditLabel.Caption = ' '
+    EditLabel.ParentColor = False
+    TabOrder = 17
+    OnChange = TextInstruChange
+  end
+  object CmdCorbeille: TButton
+    Left = 14
+    Height = 24
+    Hint = 'Dossier où les sons sont transférés lorsque qu''ils sont supprimés de la discothèque'
+    Top = 192
+    Width = 450
+    Caption = 'Dossier "Corbeille"'
+    OnClick = CmdCorbeilleClick
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 18
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 424
+    top = 72
+  end
+  object SQLite3Connection1: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    LogEvents = []
+    Options = []
+    left = 392
+    top = 72
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Options = []
+    Params = <>
+    left = 392
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Action = caNone
+    Options = []
+    left = 440
+  end
+end
