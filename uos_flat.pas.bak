@@ -1869,8 +1869,8 @@ function uos_InputPositionSeconds(PlayerIndex: cint32; InputIndex: cint32): floa
 //  result : current postion of Input in seconds
 begin
 Result := 0;
-if (length(uosPlayers) > 0) and (PlayerIndex +1 <= length(uosPlayers)) then
-  if  uosPlayersStat[PlayerIndex] = 1 then
+//if (length(uosPlayers) > 0) and (PlayerIndex +1 <= length(uosPlayers)) then
+  //if  uosPlayersStat[PlayerIndex] = 1 then
   if assigned(uosPlayers[PlayerIndex]) then Result := uosPlayers[PlayerIndex].StreamIn[InputIndex].Data.Position / uosPlayers[PlayerIndex].StreamIn[InputIndex].Data.SampleRate;
 end;
 

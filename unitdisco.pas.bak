@@ -304,7 +304,7 @@ begin
              {$else}
              uos_AddIntoDevOut(nPlayer, -1, -1, -1, -1, 0, 1024, -1);
              {$endif}
-             //uos_EndProc(nPlayer, @MyEndProc);
+             uos_EndProc(nPlayer, @MyEndProc);
              uos_InputSetPositionEnable(nPlayer, InputIndex1, 1) ;
              uos_InputSetLevelEnable(nPlayer, InputIndex1, 3) ;
 
