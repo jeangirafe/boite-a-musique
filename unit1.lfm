@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 712
+  Left = 657
   Height = 342
-  Top = 0
+  Top = 153
   Width = 462
   BorderIcons = [biMinimize]
   BorderStyle = bsSingle
@@ -12,7 +12,7 @@ object Form1: TForm1
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '1.6.4.0'
+  LCLVersion = '1.8.2.0'
   object GridProg: TStringGrid
     Cursor = crArrow
     Left = 15
@@ -502,7 +502,6 @@ object Form1: TForm1
     Active = False
     Action = caNone
     Database = SQLite3Connection1
-    Options = []
     left = 416
     top = 88
   end
@@ -510,7 +509,6 @@ object Form1: TForm1
     FieldDefs = <>
     Database = SQLite3Connection1
     Transaction = SQLTransaction1
-    Options = []
     Params = <>
     UpdateMode = upWhereAll
     left = 416
@@ -522,7 +520,6 @@ object Form1: TForm1
     KeepConnection = False
     Transaction = SQLTransaction1
     LogEvents = []
-    Options = []
     left = 416
     top = 112
   end
@@ -541,7 +538,6 @@ object Form1: TForm1
   end
   object SQLQuery2: TSQLQuery
     FieldDefs = <>
-    Options = []
     Params = <>
     UpdateMode = upWhereAll
     left = 416

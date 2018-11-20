@@ -136,7 +136,6 @@ type
       Index: Integer);
     procedure ListViewDiscoSelection(Sender: TObject; aCol, aRow: Integer);
     procedure MenuItem1Click(Sender: TObject);
-    procedure MyEndProc;
     procedure RadioGroup1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure TextAnneeChange(Sender: TObject);
@@ -148,6 +147,9 @@ type
     procedure TextPaysChange(Sender: TObject);
     procedure TextTitreChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure ClosePlayer0;
+    procedure ChargeSon(nPlayer: integer; LePath: string);
+
     //procedure LoopProcPlayer1;
     procedure ShowPosition;
   private
@@ -175,6 +177,8 @@ uses
 {$R *.lfm}
 
 { TFrmDisco }
+
+
 
 
 Procedure ClearList;
@@ -283,12 +287,9 @@ FrmDisco.cboArtiste.TopIndex:=5;
 FrmDisco.SQLQuery1.close;
 End;
 
-procedure TFrmDisco.MyEndProc;
-begin
-   showmessage('coucou');
-end;
 
-Procedure ChargeSon(nPlayer: integer; LePath: string);
+
+Procedure TFrmDisco.ChargeSon(nPlayer: integer; LePath: string);
 var
   samformat: shortint;
   temptime: ttime;
@@ -297,29 +298,44 @@ begin
      uos_CreatePlayer(nPlayer);
      If Fileexists(LePath) then
         begin
-             InputIndex1 := uos_AddFromFile(nPlayer, PChar(LePath), -1, 0, 1024);
-             //uos_InputAddDSPVolume(nPlayer, InputIndex1, 1, 1);
+             InputIndex1 := uos_AddFromFile(0, PChar(LePath), -1, 0, 1024);
+             //uos_InputAddDSPVolume(0, InputIndex1, 1, 1);
              {$if defined(cpuarm)} // needs lower latency
-             uos_AddIntoDevOut(nPlayer, -1, 0.3, -1, -1, 0, 1024, -1);
+             uos_AddIntoDevOut(0, -1, 0.3, -1, -1, 0, 1024, -1);
              {$else}
-             uos_AddIntoDevOut(nPlayer, -1, -1, -1, -1, 0, 1024, -1);
+             uos_AddIntoDevOut(0, -1, -1, -1, -1, 0, 1024, -1);
              {$endif}
-             //uos_EndProc(nPlayer, @MyEndProc);
-             uos_InputSetPositionEnable(nPlayer, InputIndex1, 1) ;
-             uos_InputSetLevelEnable(nPlayer, InputIndex1, 3) ;
+             uos_EndProc(0, @ClosePlayer0);
+             uos_InputSetPositionEnable(0, InputIndex1, 1) ;
+             uos_InputSetLevelEnable(0, InputIndex1, 3) ;
 
-             temptime:= uos_InputLengthTime(0, inputIndex1 );
+             uos_InputLength(0, InputIndex1);
+             temptime:= uos_InputLengthTime(0, InputIndex1);
+
              DecodeTime(temptime, ho, mi, se, ms);
-             FrmDisco.LabelTOT.tag:= integer(mi + 1000*se + 60000*mi + 3600000*ho);
-             FrmDisco.LabelTOT.caption:= format('%.2d:%.2d:%.2d.%.3d', [ho, mi, se, ms]);
+             LabelTOT.tag:= integer(ms + 1000*se + 60000*mi + 3600000*ho);
+             LabelTOT.caption:= format('%.2d:%.2d:%.2d.%.3d', [ho, mi, se, ms]);
+
+
         end;
 end;
+
+Procedure TFrmDisco.ClosePlayer0;
+var
+  Lepath: string;
+  aRow: integer;
+begin
+    aRow:=ListViewDisco.Row;
+    Lepath:=ListViewDisco.Cells[11,aRow];
+    ChargeSon(0, LePath);
+end;
+
 
 Procedure PlayFile(n : integer; nPos : single);
 begin
      //uos_Stop(n);
-     uos_InputSeekSeconds(n, InputIndex1 ,nPos);
-     uos_PlayNoFree(n);
+     uos_InputSeekSeconds(n, InputIndex1, nPos);
+     uos_Play(n);
 
 end;
 
@@ -491,12 +507,12 @@ Procedure AfficheRow(aRow : integer);
   FrmDisco.ListViewDisco.Hint:=Lepath;
 
   FrmDisco.Imagelist1.GetBitmap(8, FrmDisco.CmdPlay.Glyph);
-  if uos_getstatus(0) = 1 then uos_stop(0);
+  uos_stop(0);
   uos_FreePlayer(0);
 
    If Fileexists(LePath) then
       begin
-           ChargeSon(0, LePath);
+           FrmDisco.ChargeSon(0, LePath);
            FrmDisco.cmdPlay.enabled:=true;
            FrmDisco.cmdPlayPS.enabled:=true;
            FrmDisco.CmdPlayPS.Tag:= 1;
@@ -890,7 +906,7 @@ begin
       end
      else
          begin}
-          If uos_getstatus(0) = 1 then uos_stop(0);
+          //If uos_getstatus(0) = 1 then uos_stop(0);
            //Imagelist1.GetBitmap(9, CmdPlay.Glyph);
            //uos_CreatePlayer(0); /// you may create how many players you want, from 0 to to what you computer can do...
 
@@ -921,6 +937,7 @@ begin
          //end;
       //end;
      nIntro:= (LabelIntro.tag) / 1000;
+     //showmessage(inttostr(labelintro.tag));
      Playfile (0, nIntro);
 end;
 
@@ -1047,7 +1064,7 @@ begin
      {n:=ListViewDisco.Row;
      Lepath:=ListViewDisco.Cells[11,n];}
 
-     If uos_getstatus(0) = 1 then uos_stop(0);
+     //If uos_getstatus(0) = 1 then uos_stop(0);
      //uos_CreatePlayer(0); /// you may create how many players you want, from 0 to to what you computer can do...
      //uos_AddIntoDevOut(0);   //// Add Output with default parameter
      //InputIndex1 := uos_AddFromFile(0, PChar(LePath));
@@ -1068,7 +1085,7 @@ procedure TFrmDisco.CmdPlaySIClick(Sender: TObject);
 var
    nSI : single;
 begin
-     If uos_getstatus(0) = 1 then uos_stop(0);
+     //If uos_getstatus(0) = 1 then uos_stop(0);
          {begin
               n:=ListViewDisco.Row;
               Lepath:=ListViewDisco.Cells[11,n];
@@ -1663,7 +1680,7 @@ var
    n : integer;
    LePath : string;
 begin
-     If uos_getstatus(0) = 1 then uos_stop(0);
+     //If uos_getstatus(0) = 1 then uos_stop(0);
      {uos_CreatePlayer(0); /// you may create how many players you want, from 0 to to what you computer can do...
      uos_AddIntoDevOut(0);   //// Add Output with default parameter
      InputIndex1 := uos_AddFromFile(0, PChar(LePath));
@@ -1709,7 +1726,7 @@ procedure TFrmDisco.CmdPlayPSClick(Sender: TObject);
 var
    nPS : single;
 begin
-    If uos_getstatus(0) = 1 then uos_stop(0);
+    //If uos_getstatus(0) = 1 then uos_stop(0);
          {begin
               n:=ListViewDisco.Row;
               Lepath:=ListViewDisco.Cells[11,n];
